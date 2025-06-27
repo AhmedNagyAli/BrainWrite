@@ -13,11 +13,13 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -60,8 +62,67 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make()->slideOver(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
+    BulkAction::make('updateRole')
+        ->label('Update Role')
+        ->form([
+            Select::make('role')
+                ->label('New Role')
+                ->options(
+                    collect(UserRole::cases())
+                        ->mapWithKeys(fn ($role) => [$role->value => ucfirst(str_replace('_', ' ', $role->value))])
+                        ->toArray()
+                )
+                ->required(),
+        ])
+        ->action(function (array $data, $records) {
+            foreach ($records as $record) {
+                $record->update(['role' => $data['role']]);
+            }
+        })
+        ->icon('heroicon-o-user-group'),
+
+    BulkAction::make('updateActive')
+        ->label('Toggle Active Status')
+        ->form([
+            Toggle::make('active')->label('Active')->default(true),
+        ])
+        ->action(function (array $data, $records) {
+            foreach ($records as $record) {
+                $record->update(['active' => $data['active']]);
+            }
+        })
+        ->icon('heroicon-o-check-circle'),
+
+    BulkAction::make('updateBanned')
+        ->label('Toggle Banned Status')
+        ->form([
+            Toggle::make('banned')->label('Banned')->default(false),
+        ])
+        ->action(function (array $data, $records) {
+            foreach ($records as $record) {
+                $record->update(['banned' => $data['banned']]);
+            }
+        })
+        ->icon('heroicon-o-shield-exclamation'),
+
+    BulkAction::make('updatePassword')
+        ->label('Update Password')
+        ->form([
+            TextInput::make('password')
+                ->label('New Password')
+                ->password()
+                ->required()
+                ->minLength(6),
+        ])
+        ->action(function (array $data, $records) {
+            foreach ($records as $record) {
+                $record->update([
+                    'password' => Hash::make($data['password']),
+                ]);
+            }
+        })
+        ->icon('heroicon-o-lock-closed'),
+    ]);
     }
 
     public static function getRelations(): array
