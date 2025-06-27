@@ -8,7 +8,8 @@
                 <a href="#" class="text-gray-700 hover:text-indigo-600">Register</a>
             @else
                 <span class="text-gray-700">Hi, {{ Auth::user()->name }}</span>
-                <form method="POST" action="{{ route('logout') }}">
+                {{-- action="{{ route('logout') }}" --}}
+                <form method="POST" >
                     @csrf
                     <button class="text-gray-700 hover:text-indigo-600" type="submit">Logout</button>
                 </form>

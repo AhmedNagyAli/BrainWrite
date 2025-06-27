@@ -7,6 +7,8 @@
 
 <!-- Favicon & Styles -->
 <link rel="icon" href="{{ asset('favicon.ico') }}">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 @vite('resources/css/app.css')
 @stack('styles')
