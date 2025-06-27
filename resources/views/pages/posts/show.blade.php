@@ -28,15 +28,22 @@
                 <img src="{{ asset('storage/' . $section->image) }}" class="w-full rounded mb-4" alt="Section Image">
             @endif
 
-            @if ($section->video_url)
+            @if ($section->video)
                 <div class="mb-4">
-                    <iframe src="{{ $section->video_url }}" class="w-full h-64 rounded" frameborder="0" allowfullscreen></iframe>
+                    <video controls class="w-full rounded">
+                        <source src="{{ asset('storage/' . $section->video) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-            @elseif ($section->video)
-                <video controls class="w-full mb-4">
-                    <source src="{{ asset('storage/' . $section->video) }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+            {{-- @elseif ($section->video_url)
+                <div class="mb-4">
+                    <iframe
+                        src="{{ $section->video_url }}"
+                        class="w-full h-64 rounded"
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+                </div> --}}
             @endif
 
             <p class="text-gray-800 leading-relaxed">{{ $section->content }}</p>
