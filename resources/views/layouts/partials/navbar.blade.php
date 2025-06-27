@@ -4,12 +4,11 @@
         {{-- Left: Auth links --}}
         <div class="flex items-center space-x-4 text-sm font-medium">
             @guest
-                <a  class="text-gray-700 hover:text-indigo-600">Login</a>
-                <a href="#" class="text-gray-700 hover:text-indigo-600">Register</a>
+                <a href="{{ route('login') }}"  class="text-gray-700 hover:text-indigo-600">Login</a>
+                <a href="{{ route('register') }}" class="text-gray-700 hover:text-indigo-600">Register</a>
             @else
                 <span class="text-gray-700">Hi, {{ Auth::user()->name }}</span>
-                {{-- action="{{ route('logout') }}" --}}
-                <form method="POST" >
+                <form method="POST" action="{{ route('logout') }}" >
                     @csrf
                     <button class="text-gray-700 hover:text-indigo-600" type="submit">Logout</button>
                 </form>

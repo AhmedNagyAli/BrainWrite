@@ -8,7 +8,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                arabic: ['Cairo', 'sans-serif'],
+                arabic: ['Tajawal', 'sans-serif'],
             },
         },
     },
