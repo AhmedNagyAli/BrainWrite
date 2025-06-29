@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,8 +13,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 //     return view('welcome');
 // });
 Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('category.show');
-//Route::get('/ajax/categories', [CategoryController::class, 'list'])->name('categories.ajax');
-
+Route::get('/tags/{slug}', [TagController::class, 'show'])->name('tag.show');
 
 
 //Auth routes
