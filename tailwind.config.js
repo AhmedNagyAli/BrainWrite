@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const rtl = require('tailwindcss-rtl')
 export default {
     content: [
         './resources/**/*.blade.php',
@@ -8,14 +9,17 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                arabic: ['Tajawal', 'sans-serif'],
+                almarai: ['Almarai', 'sans-serif'],
             },
+            maxWidth: {
+                '8xl': '90rem', // 1440px
+                '9xl': '100rem', // 1600px
+                '10xl': '110rem', // 1760px
+            }
         },
-        maxWidth: {
-            '8xl': '90rem', // 1440px
-            '9xl': '100rem', // 1600px
-            '10xl': '110rem', // 1760px
-        }
+
     },
-    plugins: [],
+    plugins: [
+        rtl,
+    ],
 }

@@ -47,7 +47,7 @@ class PostResource extends Resource
                         Forms\Components\TextInput::make('slug')->required()->unique(ignoreRecord: true),
                         Forms\Components\Textarea::make('excerpt'),
                         Forms\Components\TextInput::make('meta_title'),
-                        Forms\Components\Textarea::make('meta_description'),
+                        Forms\Components\RichEditor::make('meta_description'),
 
                         Forms\Components\FileUpload::make('image')
                             ->image()
@@ -87,7 +87,8 @@ class PostResource extends Resource
                         Toggle::make('featured')
                 ->label('Featured Post')
                 ->onColor('success')
-                ->offColor('secondary'),
+                ->offColor('secondary')
+                ->reactive(),
 
             DateTimePicker::make('featured_until')
                 ->label('Feature Until Date')
@@ -104,7 +105,7 @@ class PostResource extends Resource
                             ->relationship()
                             ->schema([
                                 Forms\Components\TextInput::make('title'),
-                                Forms\Components\Textarea::make('content'),
+                                Forms\Components\RichEditor::make('content'),
                                 Forms\Components\TextInput::make('link')->url()->label('External Link'),
 
                                 Forms\Components\FileUpload::make('image')

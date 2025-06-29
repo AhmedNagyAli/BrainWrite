@@ -33,5 +33,8 @@
     "bugs": {
         "url": "https://github.com/AhmedNagyAli/BrainWrite/issues"
     },
-    "homepage": "https://github.com/AhmedNagyAli/BrainWrite#readme"
+    "homepage": "https://github.com/AhmedNagyAli/BrainWrite#readme",
+    "dependencies": {
+        "tailwindcss-rtl": "^0.9.0"
+    }
 }

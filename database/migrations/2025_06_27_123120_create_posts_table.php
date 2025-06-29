@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('video')->nullable();
             $table->string('video_url')->nullable();
-            $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
+            $table->enum('status', allowed: ['draft', 'published', 'archived'])->default('draft');
             $table->timestamp('published_at')->nullable();
             $table->unsignedBigInteger('visited')->default(0);
             $table->timestamps();

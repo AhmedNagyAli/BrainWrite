@@ -1,8 +1,8 @@
 <article class="bg-white shadow p-2">
     <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
 
-    <h2 class="text-xl font-semibold mt-4">
-        <a href="{{ route('posts.show', $post->slug) }}" class="text-blue-600 hover:underline">
+    <h2 class="text-xl font-extrabold mt-4">
+        <a href="{{ route('posts.show', $post->slug) }}" class="text-black hover:underline">
             {{ $post->title }}
         </a>
     </h2>

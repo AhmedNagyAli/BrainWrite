@@ -3,3 +3,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+    src: url('/public/fonts/almarai/Almarai-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Almarai';
+    src: url('/public/fonts/almarai/Almarai-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Almarai';
+    src: url('/public/fonts/almarai/Almarai-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Almarai';
+    src: url('/public/fonts/almarai/Almarai-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+}
+
+body {
+    font-family: 'Almarai', sans-serif;
+    font-weight: 400;
+    /* Regular for body */
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 700;
+    /* Bold for headings */
+}
