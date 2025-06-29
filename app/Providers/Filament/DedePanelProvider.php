@@ -24,11 +24,12 @@ class DedePanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            ->topNavigation()
             ->id('dede')
             ->path('dede')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

@@ -16,7 +16,7 @@ use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
-
+use Filament\Tables\Filters\SelectFilter;
 
 class UserResource extends Resource
 {
@@ -53,8 +53,14 @@ class UserResource extends Resource
                 BooleanColumn::make('banned'),
             ])
             ->filters([
-                //
+    SelectFilter::make('role')
+        ->label('Role')
+        ->options(
+            collect(UserRole::cases())->mapWithKeys(fn ($role) => [
+                $role->value => ucfirst(str_replace('_', ' ', $role->value)),
             ])
+        ),
+])
             ->actions([
     ActionGroup::make([
         Action::make('updateRole')

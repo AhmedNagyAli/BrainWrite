@@ -13,6 +13,8 @@ use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -111,7 +113,7 @@ class PostResource extends Resource
                             ->defaultItems(1)
                             ->collapsible()
                             ->orderable('order')
-                            ->grid(2),
+                            ->grid(1),
                     ]),
             ]);
     }
@@ -152,6 +154,8 @@ class PostResource extends Resource
             }),
 
         DeleteAction::make(),
+        EditAction::make()->modal(),
+        ViewAction::make()->modal(),
     ])
 ])
             ->bulkActions([
@@ -171,7 +175,7 @@ class PostResource extends Resource
         return [
             'index' => Pages\ListPosts::route('/'),
             'create' => Pages\CreatePost::route('/create'),
-            'edit' => Pages\EditPost::route('/{record}/edit'),
+            //'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
     }
 }
