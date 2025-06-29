@@ -7,7 +7,7 @@
     <h1 class="text-3xl font-bold mb-4">{{ $post->title }}</h1>
 
     @if ($post->image)
-        <img src="{{ asset('storage/' . $post->image) }}" class="w-full rounded mb-4" alt="{{ $post->title }}">
+        <img src="{{ asset('storage/' . $post->image) }}" class="w-full  mb-4" alt="{{ $post->title }}">
     @endif
 
     <p class="text-sm text-gray-500 mb-2">
@@ -25,12 +25,12 @@
             @endif
 
             @if ($section->image)
-                <img src="{{ asset('storage/' . $section->image) }}" class="w-full rounded mb-4" alt="Section Image">
+                <img src="{{ asset('storage/' . $section->image) }}" class="w-full  mb-4" alt="Section Image">
             @endif
 
             @if ($section->video)
                 <div class="mb-4">
-                    <video controls class="w-full rounded">
+                    <video controls class="w-full ">
                         <source src="{{ asset('storage/' . $section->video) }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>

@@ -6,8 +6,12 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -15,9 +19,13 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class PostResource extends Resource
@@ -76,6 +84,15 @@ class PostResource extends Resource
                             ->required(),
 
                         Forms\Components\DateTimePicker::make('published_at'),
+                        Toggle::make('featured')
+                ->label('Featured Post')
+                ->onColor('success')
+                ->offColor('secondary'),
+
+            DateTimePicker::make('featured_until')
+                ->label('Feature Until Date')
+                ->nullable()
+                ->hidden(fn (Get $get) => !$get('featured')),
 
                         Forms\Components\Hidden::make('user_id')
                             ->default(fn () => auth()->id()),
@@ -127,10 +144,54 @@ class PostResource extends Resource
     ->label('Image')
     ->circular()
     ->disk('public')
-    ->url(fn ($record) => asset('posts/images' . $record->image)),
+    ,
                 Tables\Columns\TextColumn::make('category.name')->label('Category'),
                 Tables\Columns\TextColumn::make('status')->badge(),
                 Tables\Columns\TextColumn::make('published_at')->dateTime(),
+                ToggleColumn::make('featured')
+    ->label('Featured')
+    ->onColor('warning')  // Color when true
+    ->offColor('gray')    // Color when false
+    ->onIcon('heroicon-o-star')
+    ->offIcon('heroicon-o-star')
+    ->updateStateUsing(function ($record, $state) {
+        $record->featured = $state;
+        $record->save();
+    }),
+
+
+TextColumn::make('featured_until')
+    ->label('Featured Until')
+    ->dateTime()
+    ->sortable()
+    ->toggleable()
+    ->action(
+        Action::make('setFeaturedUntil')
+            ->form([
+                \Filament\Forms\Components\DateTimePicker::make('featured_until')
+                    ->label('Featured Until')
+                    ->required()
+                    ->minDate(now())
+                    ->native(false)
+                    ->displayFormat('M j, Y H:i')
+            ])
+            ->action(function ($record, array $data) {
+                // Convert string to Carbon instance first
+                $featuredUntil = Carbon::parse($data['featured_until']);
+
+                $record->update([
+                    'featured' => true,
+                    'featured_until' => $featuredUntil
+                ]);
+
+                Notification::make()
+                    ->title('Post Featured')
+                    ->body("Post will be featured until " . $featuredUntil->format('M j, Y H:i'))
+                    ->success()
+                    ->send();
+            })
+    )
+    ->placeholder('Not featured'),
             ])
             ->filters([])
             ->actions([

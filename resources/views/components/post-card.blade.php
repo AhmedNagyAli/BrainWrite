@@ -1,5 +1,5 @@
-<article class="bg-white shadow rounded p-4">
-    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded">
+<article class="bg-white shadow p-2">
+    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
 
     <h2 class="text-xl font-semibold mt-4">
         <a href="{{ route('posts.show', $post->slug) }}" class="text-blue-600 hover:underline">

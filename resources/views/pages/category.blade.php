@@ -41,7 +41,7 @@
         <aside class="hidden md:block md:col-span-2 space-y-4">
             {{-- Categories --}}
             <div class="bg-white p-4 shadow rounded">
-    <h2 class="text-base font-bold mb-2">Categories</h2>
+    <h2 class="block max-w-full overflow-hidden whitespace-nowrap truncate text-base font-bold mb-2">Categories</h2>
     <ul class="space-y-1 text-sm text-blue-600">
         @foreach (\App\Models\Category::limit(10)->get() as $cat)
             <li>

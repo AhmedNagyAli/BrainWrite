@@ -11,6 +11,11 @@ export default {
                 arabic: ['Tajawal', 'sans-serif'],
             },
         },
+        maxWidth: {
+            '8xl': '90rem', // 1440px
+            '9xl': '100rem', // 1600px
+            '10xl': '110rem', // 1760px
+        }
     },
     plugins: [],
 }
