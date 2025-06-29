@@ -29,3 +29,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 
 Route::get('/posts/{slug}', [PostController::class, 'show'])->name('posts.show');
+Route::post('/posts/visit/{slug}', [PostController::class, 'incrementVisitBySlug'])
+    ->name('posts.incrementVisitBySlug')
+    ->middleware('web');

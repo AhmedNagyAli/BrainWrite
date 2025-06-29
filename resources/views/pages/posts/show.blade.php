@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="max-w-4xl mx-auto p-4">
+    <div id="visit-tracker" data-slug="{{ $post->slug }}" data-url="{{ route('posts.incrementVisitBySlug', $post->slug) }}"></div>
     <h1 class="text-4xl font-extrabold mb-4">{{ $post->title }}</h1>
 
     @if ($post->image)
@@ -57,3 +58,45 @@
     @endforeach
 </div>
 @endsection
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const tracker = document.getElementById('visit-tracker');
+    if (!tracker) return;
+
+    const slug = tracker.dataset.slug;
+    const url = tracker.dataset.url;
+
+    // Session-based tracking (will reset when browser closes)
+    const sessionKey = `session_visit_${slug}`;
+
+    // Check if we've already counted this visit in current session
+    if (!sessionStorage.getItem(sessionKey)) {
+        // Wait 5 seconds before counting to prevent quick refreshes
+        setTimeout(() => {
+            // Only count if page is still visible after 5 seconds
+            if (document.visibilityState === 'visible') {
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    credentials: "same-origin"
+                }).then(response => {
+                    if (response.ok) {
+                        // Mark as counted in this session
+                        sessionStorage.setItem(sessionKey, 'true');
+                        console.log('Visit counted for this session');
+                    }
+                }).catch(error => {
+                    console.error('Error counting visit:', error);
+                });
+            }
+        }, 5000); // 5-second delay
+    }
+});
+</script>
+@endpush
