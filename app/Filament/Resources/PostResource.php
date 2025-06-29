@@ -47,7 +47,8 @@ class PostResource extends Resource
                         Forms\Components\TextInput::make('slug')->required()->unique(ignoreRecord: true),
                         Forms\Components\Textarea::make('excerpt'),
                         Forms\Components\TextInput::make('meta_title'),
-                        Forms\Components\RichEditor::make('meta_description'),
+                        Forms\Components\Textarea::make('meta_description')
+                        ->autosize(),
 
                         Forms\Components\FileUpload::make('image')
                             ->image()
@@ -105,7 +106,7 @@ class PostResource extends Resource
                             ->relationship()
                             ->schema([
                                 Forms\Components\TextInput::make('title'),
-                                Forms\Components\RichEditor::make('content'),
+                                Forms\Components\Textarea::make('content')->autosize(),
                                 Forms\Components\TextInput::make('link')->url()->label('External Link'),
 
                                 Forms\Components\FileUpload::make('image')
@@ -122,10 +123,7 @@ class PostResource extends Resource
                                     ->url()
                                     ->label('Video URL'),
 
-                                Forms\Components\TextInput::make('order')
-                                    ->numeric()
-                                    ->default(0)
-                                    ->label('Display Order'),
+                                
                             ])
                             ->label('Post Sections')
                             ->defaultItems(1)

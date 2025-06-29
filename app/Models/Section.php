@@ -18,4 +18,13 @@ class Section extends Model
     {
         return $this->belongsTo(Post::class);
     }
+    protected static function booted()
+{
+    static::creating(function ($section) {
+        if (is_null($section->order)) {
+            $max = $section->post->sections()->max('order') ?? 0;
+            $section->order = $max + 1;
+        }
+    });
+}
 }

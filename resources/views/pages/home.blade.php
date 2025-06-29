@@ -7,7 +7,7 @@
         .custom-pagination {
             position: absolute;
             bottom: 0.5rem;
-            left: 0.5rem;
+            right: 10px;
             display: flex;
             gap: 0.5rem;
             z-index: 10;

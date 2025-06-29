@@ -11,11 +11,11 @@
                                  alt="{{ $post->title }}">
 
                             {{-- Overlay text at the bottom --}}
-                            <div class="absolute bottom-0 left-0 w-full bg-black/60 px-4 py-2">
-                                <h3 class="text-white font-almarai font-bold text-base sm:text-xl md:text-2xl">
-                                    {{ $post->title }}
-                                </h3>
-                            </div>
+                            <div class="absolute bottom-10 left-0 w-full bg-black/60 px-4 py-2">
+    <h3 class="text-white font-almarai font-extrabold text-base sm:text-xl md:text-3xl">
+        {{ $post->title }}
+    </h3>
+</div>
                         </a>
                     </div>
                 @endforeach
