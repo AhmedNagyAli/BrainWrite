@@ -10,7 +10,7 @@ class Category extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'is_active'];
 
     public function posts()
     {
