@@ -11,7 +11,7 @@
                     </svg>
                 </button>
 
-                {{-- Mobile Search Dropdown --}}
+                {{-- Mobile Search Dropdown - Fixed positioning --}}
                 <div x-show="searchOpen"
                      @click.away="searchOpen = false"
                      x-transition:enter="transition ease-out duration-100"
@@ -20,7 +20,7 @@
                      x-transition:leave="transition ease-in duration-75"
                      x-transition:leave-start="transform opacity-100 scale-100"
                      x-transition:leave-end="transform opacity-0 scale-95"
-                     class="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg z-50 p-2 border border-gray-200"
+                     class="fixed left-4 right-4 top-16 bg-white rounded-lg shadow-lg z-50 p-2 border border-gray-200"
                      x-cloak>
                     <div class="relative">
                         <input type="text"
@@ -68,9 +68,8 @@
                         </form>
                     </div>
                 @else
-                    <div class="flex gap-3 text-sm">
+                    <div class="text-sm">
                         <a href="{{ route('login') }}" class="text-black hover:text-gray-600">تسجيل الدخول</a>
-                        <a href="{{ route('register') }}" class="text-black hover:text-gray-600">إنشاء حساب</a>
                     </div>
                 @endauth
             </div>
