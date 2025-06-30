@@ -4,36 +4,6 @@
 
 @section('content')
 <div class="max-w-[1800px] mx-auto px-2 sm:px-4 py-6 space-y-8 font-almarai">
-
-    {{-- Mobile: Categories & Tags as Dropdown --}}
-    <div class="md:hidden space-y-4">
-        <details class="bg-white p-4 shadow rounded">
-            <summary class="text-lg font-semibold cursor-pointer">📂 التصنيفات</summary>
-            <ul class="mt-2 space-y-2 text-sm text-blue-700">
-                @foreach (\App\Models\Category::limit(10)->get() as $cat)
-                    <li>
-                        <a href="{{ route('category.show', $cat->slug) }}"
-                           class="hover:underline hover:text-blue-900">
-                            {{ $cat->name }}
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </details>
-
-        <details class="bg-white p-4 shadow rounded">
-            <summary class="text-lg font-semibold cursor-pointer">🏷️ الوسوم</summary>
-            <div class="mt-2 flex flex-wrap gap-2 text-sm">
-                @foreach (\App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->limit(15)->get() as $loopTag)
-                    <a href="{{ route('tag.show', $loopTag->slug) }}"
-                       class="bg-blue-100 text-blue-800 px-2 py-1 rounded hover:bg-blue-200 {{ $loopTag->id === $tag->id ? 'font-bold bg-blue-200' : '' }}">
-                        #{{ $loopTag->name }}
-                    </a>
-                @endforeach
-            </div>
-        </details>
-    </div>
-
     {{-- Main Grid Layout --}}
     <div class="grid md:grid-cols-12 gap-6">
 

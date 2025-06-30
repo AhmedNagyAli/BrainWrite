@@ -1,5 +1,5 @@
 {{-- components/mobile-categories-tags.blade.php --}}
-<details class="bg-white p-4 shadow rounded">
+{{-- <details class="bg-white p-4 shadow rounded">
     <summary class="text-lg font-semibold cursor-pointer">📂 التصنيفات</summary>
     <ul class="mt-2 space-y-2 text-sm text-blue-700">
         @foreach (\App\Models\Category::limit(10)->get() as $cat)
@@ -23,4 +23,4 @@
             </a>
         @endforeach
     </div>
-</details>
+</details> --}}
