@@ -15,7 +15,7 @@
         By {{ $post->user->name }} · {{ $post->created_at?->format('F j, Y') }}
     </p>
 
-    <p class="text-lg mb-6 text-gray-700">{{ $post->excerpt }}</p>
+    <p class="text-lg mb-6 text-gray-700">{{ $post->meta_title }}</p>
 
     <hr class="my-6">
 

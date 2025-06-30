@@ -123,7 +123,7 @@ class PostResource extends Resource
                                     ->url()
                                     ->label('Video URL'),
 
-                                
+
                             ])
                             ->label('Post Sections')
                             ->defaultItems(1)
@@ -137,6 +137,7 @@ class PostResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
                 Tables\Columns\ImageColumn::make('image')
