@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Welcome to My Blog')
+@section('title', 'BrainWrite')
 @section('meta_description', 'Read the latest posts on various topics.')
 @push('styles')
    <style>
