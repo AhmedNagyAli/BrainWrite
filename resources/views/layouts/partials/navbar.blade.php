@@ -1,7 +1,7 @@
 {{-- Top Navbar --}}
 <nav class="bg-white text-black w-full fixed top-2 right-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-0 flex justify-between items-center flex-row-reverse">
 
+    <div class="max-w-7xl mx-auto px-4 py-0 flex justify-between items-center flex-row-reverse">
         {{-- Left: User Avatar --}}
         <div class="relative group hidden md:block">
             @auth

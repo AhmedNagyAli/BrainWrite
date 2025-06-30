@@ -52,6 +52,7 @@ class PostResource extends Resource
 
                         Forms\Components\FileUpload::make('image')
                             ->image()
+                            ->imageEditor()
                             ->directory('posts/images')
                             ->visibility('public'),
 
@@ -120,6 +121,7 @@ DateTimePicker::make('featured_until')
 
                                 Forms\Components\FileUpload::make('image')
                                     ->image()
+                                    ->imageEditor()
                                     ->directory('posts/sections/images')
                                     ->visibility('public'),
 
