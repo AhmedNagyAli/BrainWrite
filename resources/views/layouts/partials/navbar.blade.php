@@ -64,13 +64,15 @@
 </nav>
 
 {{-- Tags Navbar (Third bar) --}}
-<nav class="bg-white text-black border-t border-gray-700">
-    <div class="max-w-7xl mx-auto px-4 py-2 overflow-x-auto whitespace-nowrap text-right text-sm">
-        @foreach(\App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->where('is_active',true)->paginate(15) as $tag)
-            <a href="{{ route('tag.show', $tag->slug) }}"
-               class="inline-block bg-gray-100 text-blue-950 font-semibold px-3 py-1 rounded-full hover:bg-gray-300 hover:text-black mx-1 mb-1">
-                #{{ $tag->name }}
-            </a>
-        @endforeach
+<nav class="w-full bg-white text-black border-t border-gray-200">
+    <div class="w-full overflow-x-auto text-center px-4 py-3">
+        <div class="inline-flex flex-wrap justify-center gap-2 text-sm rtl:text-right">
+            @foreach(\App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->where('is_active', true)->limit(15)->get() as $tag)
+                <a href="{{ route('tag.show', $tag->slug) }}"
+                   class="inline-block bg-gray-100 text-blue-950 font-semibold px-4 py-1 rounded-full hover:bg-gray-300 hover:text-black transition">
+                    #{{ $tag->name }}
+                </a>
+            @endforeach
+        </div>
     </div>
 </nav>

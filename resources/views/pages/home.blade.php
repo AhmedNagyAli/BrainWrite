@@ -69,7 +69,7 @@
 @include('layouts.partials.sidebar-left')
 <div>
      {{-- Horizontal Separator --}}
-        <hr class="border-gray-300 my-4">
+        <hr class="border-gray-500 my-4">
         <div>
             <h1 class="text-5xl font-extrabold mb-4"> الاخبار </h1>
             <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
