@@ -28,7 +28,7 @@
             <ul class="space-y-2 text-gray-300">
                 @foreach (\App\Models\Category::limit(10)->get() as $cat)
                     <li>
-                        <a href="{{ route('category.show', $category->slug) }}" class="hover:underline">
+                        <a href="{{ route('category.show', $cat->slug) }}" class="hover:underline">
                             {{ $cat->name }}
                         </a>
                     </li>

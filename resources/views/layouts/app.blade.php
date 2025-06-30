@@ -5,7 +5,7 @@
     @include('layouts.partials.head')
         @stack('styles')
 </head>
- @stack('scripts')
+
 <body class="bg-gray-100 text-gray-900">
 
     @include('layouts.partials.navbar')
@@ -16,7 +16,7 @@
 
     @include('layouts.partials.footer')
     @yield('script')
-
+    @stack('scripts')
 </body>
 
 </html>
