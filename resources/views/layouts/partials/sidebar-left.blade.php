@@ -35,26 +35,7 @@
         </div>
     </aside>
 
-    {{-- Main Content --}}
-    <main class="md:col-span-9 space-y-6">
-
-        {{-- Horizontal Separator --}}
-        <hr class="border-gray-300 my-2">
-
-        {{-- Featured Slider --}}
-        @include('components.featured')
-
-        {{-- Latest Blogs --}}
-        <div>
-            {{-- <h1 class="text-3xl font-extrabold mb-4"> أحدث المقالات</h1> --}}
-            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach ($featuredPosts as $post)
-                    @include('components.post-card', ['post' => $post])
-                @endforeach
-            </div>
-        </div>
-
-    </main>
+    @include('layouts.partials.header')
 
 
 
