@@ -5,10 +5,12 @@ namespace App\Filament\Resources;
 use App\Enums\UserRole;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -89,6 +91,33 @@ class UserResource extends Resource
                 $record->update(['active' => $data['active']])
             )
             ->icon('heroicon-o-check-circle'),
+            Action::make('updateAvatar')
+                ->label('تحديث الصورة')
+                ->icon('heroicon-o-photo')
+                ->form([
+                    FileUpload::make('avatar')
+                        ->label('الصورة الشخصية')
+                        ->image()
+                        ->imageEditor()
+                        ->directory('avatars')
+                        ->preserveFilenames()
+                        ->disk('public')
+                        ->required(),
+                ])
+                ->action(function (array $data, $record): void {
+                    $record->update([
+                        'avatar' => $data['avatar'],
+                    ]);
+                    Notification::make()
+            ->title('تم التحديث بنجاح')
+            ->body('تم تحديث صورة المستخدم بنجاح.')
+            ->success()
+            ->send();
+                })
+                ->modalHeading('تحديث صورة المستخدم')
+                ->modalSubmitActionLabel('حفظ')
+                ->modalWidth('md')
+                ->slideOver(),
 
         Action::make('updateBanned')
             ->label('Toggle Banned')

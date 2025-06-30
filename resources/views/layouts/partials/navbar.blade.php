@@ -15,12 +15,12 @@
             @else
     <div class="relative group">
         {{-- Avatar --}}
-        <img src="{{ Auth::user()->avatar_url ?? asset('images/default-avatar.png') }}"
+        <img src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('images/default-avatar.png') }}"
              alt="{{ Auth::user()->name }}"
              class="w-10 h-10 rounded-full cursor-pointer border border-gray-300">
 
         {{-- Dropdown --}}
-        <div class="absolute right-0 mt-2 w-40 bg-white  hidden group-hover:block z-50 text-sm text-right">
+<div class="absolute right-0 mt-1 w-40 bg-white shadow-md opacity-0 group-hover:opacity-100 transition duration-200 invisible group-hover:visible z-50 text-sm text-right">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="w-full px-4 py-2 text-black hover:bg-gray-100 text-right">تسجيل الخروج</button>
@@ -28,6 +28,7 @@
         </div>
     </div>
 @endguest
+
 
         </div>
 
