@@ -43,7 +43,7 @@
             @include('components.most-visited')
 
             {{-- Categories --}}
-            <div class="bg-white p-4 shadow rounded">
+            {{-- <div class="bg-white p-4 shadow rounded">
                 <h2 class="text-base font-bold mb-2">التصنيفات</h2>
                 <ul class="space-y-1 text-sm text-blue-600">
                     @foreach (\App\Models\Category::limit(10)->get() as $cat)
@@ -55,7 +55,7 @@
                         </li>
                     @endforeach
                 </ul>
-            </div>
+            </div> --}}
 
             {{-- Tags --}}
             <div class="bg-white p-4 shadow rounded">

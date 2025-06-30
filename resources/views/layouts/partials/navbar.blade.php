@@ -1,5 +1,5 @@
 {{-- Top Navbar --}}
-<nav class="bg-white text-black w-full fixed top-0 right-0 z-50">
+<nav class="bg-white text-black w-full fixed top-2 right-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-0 flex justify-between items-center flex-row-reverse">
 
         {{-- Left: User Avatar --}}
@@ -54,7 +54,7 @@
 {{-- Category Navbar (Second bar) --}}
 <nav class="bg-white text-black mt-[60px]">
     <div class="max-w-7xl mx-auto px-4 py-3 text-center flex flex-wrap justify-center gap-8 text-lg font-bold">
-        @foreach(\App\Models\Category::withCount('posts')->orderBy('posts_count', 'desc')->limit(9)->get() as $category)
+        @foreach(\App\Models\Category::withCount('posts')->orderBy('posts_count', 'desc')->where('is_active',true)->paginate(12) as $category)
             <a href="{{ route('category.show', $category->slug) }}"
                class="hover:text-indigo-900 transition">
                 {{ $category->name }}
@@ -66,7 +66,7 @@
 {{-- Tags Navbar (Third bar) --}}
 <nav class="bg-white text-black border-t border-gray-700">
     <div class="max-w-7xl mx-auto px-4 py-2 overflow-x-auto whitespace-nowrap text-right text-sm">
-        @foreach(\App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->limit(12)->get() as $tag)
+        @foreach(\App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->where('is_active',true)->paginate(15) as $tag)
             <a href="{{ route('tag.show', $tag->slug) }}"
                class="inline-block bg-gray-100 text-blue-950 font-semibold px-3 py-1 rounded-full hover:bg-gray-300 hover:text-black mx-1 mb-1">
                 #{{ $tag->name }}

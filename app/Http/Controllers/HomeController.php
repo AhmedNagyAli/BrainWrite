@@ -13,12 +13,17 @@ class HomeController extends Controller
             ->latest()
             ->limit(value: 3)
             ->paginate(3);
+
+        $featuredIds = $featuredPosts->pluck('id');
+
+
         $mostVisited = Post::orderBy('visited', 'desc')
         ->limit(value: 3)
         ->latest()
         ->paginate();
         $posts = Post::with('user', 'category')
                      ->where('status', 'published')
+                     ->whereNotIn('id', $featuredIds)
                      ->orderByDesc('published_at')
                      ->paginate(10);
 
