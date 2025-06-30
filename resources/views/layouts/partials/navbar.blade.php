@@ -115,7 +115,7 @@
                 <h3 class="font-bold px-2 py-1 border-b border-gray-200">التصنيفات</h3>
                 <div class="grid grid-cols-2 gap-1 p-2">
                     @foreach(\App\Models\Category::withCount('posts')->orderBy('posts_count', 'desc')->where('is_active',true)->paginate(6) as $category)
-                        <a href="{{ route('category.show', $category->slug) }}" class="text-sm px-2 py-1 hover:bg-gray-100 rounded">
+                        <a href="{{ route('category.show', $category->slug) }}" class="text-sm font-bold px-2 py-1 hover:bg-gray-100 rounded">
                             {{ $category->name }}
                         </a>
                     @endforeach
@@ -124,7 +124,7 @@
                 <h3 class="font-bold px-2 py-1 border-b border-gray-200 mt-2">الوسوم</h3>
                 <div class="flex flex-wrap gap-1 p-2">
                     @foreach(\App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->where('is_active', true)->limit(10)->get() as $tag)
-                        <a href="{{ route('tag.show', $tag->slug) }}" class="text-xs bg-gray-100 px-2 py-1 rounded-full hover:bg-gray-200">
+                        <a href="{{ route('tag.show', $tag->slug) }}" class="text-sm bg-gray-100 px-2 py-1 rounded-full hover:bg-gray-200">
                             #{{ $tag->name }}
                         </a>
                     @endforeach
@@ -150,7 +150,7 @@
 <nav class="hidden md:block w-full bg-white text-black border-t border-gray-200">
     <div class="w-full overflow-x-auto text-center px-4 py-3">
         <div class="inline-flex flex-wrap justify-center gap-2 text-sm rtl:text-right">
-            @foreach(\App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->where('is_active', true)->limit(15)->get() as $tag)
+            @foreach(\App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->where('is_active', true)->paginate(15) as $tag)
                 <a href="{{ route('tag.show', $tag->slug) }}"
                    class="inline-block bg-gray-100 text-blue-950 font-semibold px-4 py-1 rounded-full hover:bg-gray-300 hover:text-black transition">
                     #{{ $tag->name }}
@@ -166,10 +166,8 @@
     [x-cloak] { display: none !important; }
 </style>
 
-<!-- AJAX Search Script - Identical for both desktop and mobile -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to initialize search for any input/results pair
     const initSearch = (inputId, resultsId) => {
         const input = document.getElementById(inputId);
         const resultsBox = document.getElementById(resultsId);
