@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-4xl mx-auto p-4">
     <div id="visit-tracker" data-slug="{{ $post->slug }}" data-url="{{ route('posts.incrementVisitBySlug', $post->slug) }}"></div>
-    <h1 class="text-4xl font-extrabold mb-4">{{ $post->title }}</h1>
+    <h1 class="text-5xl font-extrabold mb-4">{{ $post->title }}</h1>
 
     @if ($post->image)
         <img src="{{ asset('storage/' . $post->image) }}" class="w-full  mb-4" alt="{{ $post->title }}">
@@ -15,14 +15,14 @@
         By {{ $post->user->name }} · {{ $post->created_at?->format('F j, Y') }}
     </p>
 
-    <p class="text-lg mb-6 text-gray-700">{{ $post->meta_title }}</p>
+    <p class="text-lg mb-6 text-gray-900">{{ $post->meta_title }}</p>
 
     <hr class="my-6">
 
     @foreach ($post->sections as $section)
         <div class="mb-8">
             @if ($section->title)
-                <h2 class="text-3xl font-bold mb-2">{{ $section->title }}</h2>
+                <h2 class="text-4xl font-bold mb-2">{{ $section->title }}</h2>
             @endif
 
             @if ($section->image)
@@ -51,7 +51,7 @@
 
             @if ($section->link)
                 <p class="mt-2">
-                    <a href="{{ $section->link }}" class="text-blue-600 underline" target="_blank">Read more</a>
+                    <a href="{{ $section->link }}" class="text-blue-600 underline" target="_blank">قراءة المزيد</a>
                 </p>
             @endif
         </div>

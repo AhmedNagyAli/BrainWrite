@@ -84,17 +84,26 @@ class PostResource extends Resource
                             ])
                             ->required(),
 
-                        Forms\Components\DateTimePicker::make('published_at'),
-                        Toggle::make('featured')
-                ->label('Featured Post')
-                ->onColor('success')
-                ->offColor('secondary')
-                ->reactive(),
+                        DateTimePicker::make('published_at')
+    ->label('تاريخ النشر')
+    ->default(Carbon::now()), // 🟢 Default to current time
 
-            DateTimePicker::make('featured_until')
-                ->label('Feature Until Date')
-                ->nullable()
-                ->hidden(fn (Get $get) => !$get('featured')),
+Toggle::make('featured')
+    ->label('مقال مميز؟')
+    ->onColor('success')
+    ->offColor('secondary')
+    ->reactive(),
+
+DateTimePicker::make('featured_until')
+    ->label('استمرار التمييز حتى')
+    ->seconds(true) // Show seconds
+    ->displayFormat('Y-m-d H:i:s') // Show full format
+    ->closeOnDateSelection(false)
+    ->minutesStep(5) // Optional: step for minutes
+    ->native(false) // Use JS-based picker, not native input
+    ->minDate(Carbon::now()) // Prevent past dates
+    ->hidden(fn (Get $get) => !$get('featured'))
+    ->helperText('حدد التاريخ والوقت لإنهاء التمييز'),
 
                         Forms\Components\Hidden::make('user_id')
                             ->default(fn () => auth()->id()),
