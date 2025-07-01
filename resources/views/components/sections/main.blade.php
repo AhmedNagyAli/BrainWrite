@@ -5,10 +5,10 @@
         @endforeach
     </div>
 
-    <div class="mt-6 flex justify-center gap-4" id="posts-pagination">
+    <div class="mt-6 flex justify-end gap-4" id="posts-pagination">
         @if ($posts->onFirstPage() === false)
             <button
-                class="w-10 h-10 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-gray-700 transition"
+                class="w-10 h-10 flex items-center justify-center bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition"
                 onclick="loadPosts('{{ $posts->previousPageUrl() }}')"
                 aria-label="السابق">
                 {{-- Right Arrow --}}
@@ -23,7 +23,7 @@
 
         @if ($posts->hasMorePages())
             <button
-                class="w-10 h-10 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-gray-700 transition"
+                class="w-10 h-10 flex items-center justify-center bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition"
                 onclick="loadPosts('{{ $posts->nextPageUrl() }}')"
                 aria-label="التالي">
                 {{-- Left Arrow --}}

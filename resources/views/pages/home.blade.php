@@ -86,17 +86,17 @@
                 'posts' => $recommendedPosts,
                 'sectionId' => 'recommended-posts'
             ])
-        </div>
+        </div> --}}
 
         <!-- Egypt Posts Section -->
         <hr class="border-gray-500 my-8">
-        <h2 class="text-4xl font-extrabold mb-4">أخبار مصر</h2>
-        <div id="egypt-wrapper">
-            @include('components.sections.main', [
-                'posts' => $egyptPosts,
-                'sectionId' => 'egypt-posts'
+        <h2 class="text-4xl font-extrabold mb-4">تكنولوجيا</h2>
+        <div id="tech-wrapper">
+            @include('components.sections.tech', [
+                'posts' => $techPosts,
+                'sectionId' => 'tech-posts'
             ])
-        </div> --}}
+        </div>
     </div>
 </div>
 @endsection

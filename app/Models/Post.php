@@ -39,6 +39,7 @@ class Post extends Model
     {
         return $this->hasMany(Section::class)->orderBy('order');
     }
+    
     // Scope for featured posts
     public function scopeFeatured($query)
     {

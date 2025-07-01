@@ -54,6 +54,19 @@ function loadSportsPosts(url) {
         });
 }
 
+function loadTechPosts(url) {
+    fetch(url, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        })
+        .then(res => res.text())
+        .then(html => {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const postsHtml = doc.querySelector('#tech-pagination').parentElement;
+            document.getElementById('tech-wrapper').innerHTML = postsHtml.innerHTML;
+            window.scrollTo({ top: document.getElementById('tech-wrapper').offsetTop, behavior: 'smooth' });
+        });
+}
+
 function loadSection(url, sectionId) {
     fetch(url, {
             headers: { 'X-Requested-With': 'XMLHttpRequest' },

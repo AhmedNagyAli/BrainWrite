@@ -6,10 +6,10 @@
 </div>
 
 {{-- Sports Pagination --}}
-<div class="mt-6 flex justify-center gap-4" id="sports-pagination">
+<div class="mt-6 flex justify-end gap-4" id="sports-pagination">
     @if ($sportsPosts->onFirstPage() === false)
         <button
-            class="w-10 h-10 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-gray-700 transition"
+            class="w-10 h-10 flex items-center justify-center bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition""
             onclick="loadSportsPosts('{{ $sportsPosts->previousPageUrl() }}')"
             aria-label="السابق">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -20,7 +20,7 @@
 
     @if ($sportsPosts->hasMorePages())
         <button
-            class="w-10 h-10 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-gray-700 transition"
+            class="w-10 h-10 flex items-center justify-center bg-gray-300 text-black rounded-lg hover:bg-gray-500 transition""
             onclick="loadSportsPosts('{{ $sportsPosts->nextPageUrl() }}')"
             aria-label="التالي">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
