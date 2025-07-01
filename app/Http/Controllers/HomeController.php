@@ -18,9 +18,8 @@ class HomeController extends Controller
 
 
         $mostVisited = Post::orderBy('visited', 'desc')
-        ->limit(value: 3)
         ->latest()
-        ->paginate();
+        ->paginate(5);
         $posts = Post::with('user', 'category')
                      ->where('status', 'published')
                      ->whereNotIn('id', $featuredIds)
