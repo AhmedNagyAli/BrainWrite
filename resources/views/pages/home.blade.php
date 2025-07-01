@@ -58,20 +58,45 @@
     <hr class="border-gray-500 my-4">
 
     <div>
-        <h1 class="text-5xl font-extrabold mb-4"> الاخبار </h1>
-
+        <!-- Main News Section -->
+        <h1 class="text-5xl font-extrabold mb-4">الاخبار</h1>
         <div id="posts-wrapper">
-    @include('components.sections.main', ['posts' => $posts])
-</div>
+            @include('components.sections.main', [
+                'posts' => $posts,
+                'sectionId' => 'main-posts'
+            ])
+        </div>
 
-<hr class="border-gray-500 my-8">
+        <hr class="border-gray-500 my-8">
 
-<h2 class="text-4xl font-extrabold mb-4">رياضة</h2>
+        <!-- Sports Section -->
+        <h2 class="text-4xl font-extrabold mb-4">رياضة</h2>
+        <div id="sports-wrapper">
+            @include('components.sections.sports', [
+                'posts' => $sportsPosts,
+                'sectionId' => 'sports-posts'
+            ])
+        </div>
 
-<div id="sports-wrapper">
-    @include('components.sections.sports', ['sportsPosts' => $sportsPosts])
-</div>
+        <!-- Recommended Posts Section -->
+        {{-- <hr class="border-gray-500 my-8">
+        <h2 class="text-4xl font-extrabold mb-4">موصى به</h2>
+        <div id="recommended-wrapper">
+            @include('components.sections.main', [
+                'posts' => $recommendedPosts,
+                'sectionId' => 'recommended-posts'
+            ])
+        </div>
 
+        <!-- Egypt Posts Section -->
+        <hr class="border-gray-500 my-8">
+        <h2 class="text-4xl font-extrabold mb-4">أخبار مصر</h2>
+        <div id="egypt-wrapper">
+            @include('components.sections.main', [
+                'posts' => $egyptPosts,
+                'sectionId' => 'egypt-posts'
+            ])
+        </div> --}}
     </div>
 </div>
 @endsection
