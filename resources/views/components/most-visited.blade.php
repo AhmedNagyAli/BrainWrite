@@ -3,7 +3,7 @@
     <div class="bg-white p-4 shadow rounded text-right">
         <h2 class="text-base font-bold mb-4">الأكثر زيارة</h2>
         <div class="space-y-6">
-            @foreach (\App\Models\Post::orderByDesc('visited')->limit(6)->get() as $popularPost)
+            @foreach (\App\Models\Post::orderByDesc('visited')->paginate(6) as $popularPost)
                 <a href="{{ route('posts.show', $popularPost->slug) }}" class="block group">
                     <div class="flex items-start space-x-4 rtl:space-x-reverse">
                         @if ($popularPost->image)

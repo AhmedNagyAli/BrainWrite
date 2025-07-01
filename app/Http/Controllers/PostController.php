@@ -8,12 +8,57 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function show($slug)
-    {
+{
+    $post = Post::with(['sections', 'user', 'category', 'tags'])
+        ->where('slug', $slug)
+        ->firstOrFail();
 
-        $post = Post::with(['sections', 'user', 'category'])->where('slug', $slug)->firstOrFail();
-        $post->increment('visited');
-        return view('pages.posts.show', compact('post'));
+    //$post->increment('visited');
+
+    // Get the most relevant recommended post
+    $generalRecommendedPost = Post::query()
+        ->where('id', '!=', $post->id) // Exclude current post
+        ->where('category_id', $post->category_id) // Same category
+        ->withCount(['tags' => function($query) use ($post) {
+            $query->whereIn('id', $post->tags->pluck('id')); // Count matching tags
+        }])
+        ->with(['category', 'user'])
+        ->orderByDesc('tags_count') // Posts with most matching tags first
+        ->orderByDesc('visited') // Then by popularity
+        ->orderByDesc('created_at') // Then by newest
+        ->first();
+
+    // Fallback if no same-category post found
+    if (!$generalRecommendedPost) {
+        $generalRecommendedPost = Post::query()
+            ->where('id', '!=', $post->id)
+            ->withCount(['tags' => function($query) use ($post) {
+                $query->whereIn('id', $post->tags->pluck('id'));
+            }])
+            ->with(['category', 'user'])
+            ->orderByDesc('tags_count')
+            ->orderByDesc('visited')
+            ->orderByDesc('created_at')
+            ->first();
     }
+
+    // Get additional recommended posts (same category + same tags)
+    $recommendedPosts = Post::whereHas('category', function($query) use ($post) {
+            $query->where('id', $post->category_id);
+        })
+        ->orWhereHas('tags', function($query) use ($post) {
+            $query->whereIn('id', $post->tags->pluck('id'));
+        })
+        ->where('id', '!=', $post->id)
+        ->with(['category', 'user'])
+        ->orderByDesc('visited')
+        ->paginate(6);
+    return view('pages.posts.show', [
+        'post' => $post,
+        'recommendedPosts' => $recommendedPosts,
+        'generalRecommendedPost' => $generalRecommendedPost
+    ]);
+}
 
     public function incrementVisitBySlug($slug)
 {

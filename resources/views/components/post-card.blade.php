@@ -3,6 +3,7 @@
         <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
 
     @else
+
             <img src="{{ asset('storage/defaults/post-default.png') }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
 
     @endif
