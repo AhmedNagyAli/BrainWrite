@@ -161,11 +161,11 @@
 </nav>
 
 <!-- Alpine JS -->
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
 <style>
     [x-cloak] { display: none !important; }
 </style>
-
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const initSearch = (inputId, resultsId) => {
@@ -218,3 +218,4 @@ document.addEventListener('DOMContentLoaded', function() {
     initSearch('mobile-navbar-search', 'mobile-search-results');
 });
 </script>
+@endpush
