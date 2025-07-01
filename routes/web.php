@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +36,5 @@ Route::post('/posts/visit/{slug}', [PostController::class, 'incrementVisitBySlug
 
 
 Route::get('/search/posts', [App\Http\Controllers\SearchController::class, 'searchPosts'])->name('search.posts');
+
+Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
