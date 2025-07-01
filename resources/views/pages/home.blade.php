@@ -52,57 +52,33 @@
 </style>
 @endpush
 @section('content')
-<div class="max-w-[1800px] mx-auto px-2 sm:px-4 py-2 space-y-8 font-almarai">  <!-- Changed max-width and padding -->
-@include('layouts.partials.sidebar-left')
-<div>
-     {{-- Horizontal Separator --}}
-        <hr class="border-gray-500 my-4">
-        <div>
-            <h1 class="text-5xl font-extrabold mb-4"> الاخبار </h1>
-            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                @foreach ($posts as $post)
-                    @include('components.post-card', ['post' => $post])
-                @endforeach
-            </div>
-        </div>
+<div class="max-w-[1800px] mx-auto px-2 sm:px-4 py-2 space-y-8 font-almarai">
+    @include('layouts.partials.sidebar-left')
 
+    <hr class="border-gray-500 my-4">
+
+    <div>
+        <h1 class="text-5xl font-extrabold mb-4"> الاخبار </h1>
+
+        <div id="posts-wrapper">
+    @include('components.sections.main', ['posts' => $posts])
 </div>
 
+<hr class="border-gray-500 my-8">
+
+<h2 class="text-4xl font-extrabold mb-4">رياضة</h2>
+
+<div id="sports-wrapper">
+    @include('components.sections.sports', ['sportsPosts' => $sportsPosts])
+</div>
+
+    </div>
 </div>
 @endsection
+
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const swiper = new Swiper('.featured-posts-slider', {
-        loop: false,
-        slidesPerView: 1,
-        spaceBetween: 0,
-        centeredSlides: false,
-        autoHeight: false,
-        pagination: {
-            el: '.swiper-pagination',
-            type: 'bullets',
-            clickable: true,
-            renderBullet: function (index, className) {
-                return `<span class="${className}">${index + 1}</span>`;
-            },
-        },
-        observer: true,
-        observeParents: true,
-        observeSlideChildren: true
-    });
-
-    // Force update after images load
-    const images = document.querySelectorAll('.featured-posts-slider img');
-    images.forEach(img => {
-        img.addEventListener('load', () => {
-            swiper.update();
-        });
-    });
-});
-</script>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="{{ asset('js/home.js') }}"></script>
 @endsection
 
 

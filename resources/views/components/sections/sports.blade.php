@@ -1,5 +1,12 @@
-{{-- visited Pagination --}}
-<div class="mt-6 flex justify-center gap-4" id="visited-pagination">
+{{-- Sports Posts Grid --}}
+<div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+    @foreach ($sportsPosts as $post)
+        @include('components.post-card', ['post' => $post])
+    @endforeach
+</div>
+
+{{-- Sports Pagination --}}
+<div class="mt-6 flex justify-center gap-4" id="sports-pagination">
     @if ($sportsPosts->onFirstPage() === false)
         <button
             class="w-10 h-10 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-gray-700 transition"

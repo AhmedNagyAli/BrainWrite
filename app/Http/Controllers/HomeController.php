@@ -11,8 +11,13 @@ class HomeController extends Controller
     {
         $featuredPosts = Post::featured()
             ->latest()
-            ->limit(value: 3)
-            ->paginate(3);
+            ->paginate(5);
+            $sportsPosts = Post::with('user', 'category', 'tags')
+    ->where('status', 'published')
+    ->whereHas('tags', fn($q) => $q->where('slug', 'sports'))
+    ->orderByDesc('published_at')
+    ->paginate(2, ['*'], 'sports_page'); // Unique pagination name
+
 
         $featuredIds = $featuredPosts->pluck('id');
 
@@ -26,6 +31,14 @@ class HomeController extends Controller
                      ->orderByDesc('published_at')
                      ->paginate(10);
 
-        return view('pages.home', compact('posts','featuredPosts','mostVisited'));
+if (request()->ajax()) {
+    if (request()->has('sports_page')) {
+        return view('components.sections.sports', ['sportsPosts' => $sportsPosts])->render();
+    }
+
+    return view('components.sections.main', ['posts' => $posts])->render();
+}
+
+return view('pages.home', compact('posts', 'featuredPosts', 'mostVisited', 'sportsPosts'));
     }
 }

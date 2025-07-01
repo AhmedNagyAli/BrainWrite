@@ -54,17 +54,24 @@ function loadSportsPosts(url) {
         });
 }
 
-
 function loadSection(url, sectionId) {
     fetch(url, {
             headers: { 'X-Requested-With': 'XMLHttpRequest' },
         })
         .then(res => res.text())
         .then(html => {
-            document.getElementById(sectionId).innerHTML = html;
-            window.scrollTo({
-                top: document.getElementById(sectionId).offsetTop,
-                behavior: 'smooth'
-            });
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            const newContent = doc.querySelector(`#section-content-${sectionId}`);
+            const target = document.querySelector(`#${sectionId}`);
+
+            if (newContent && target) {
+                target.innerHTML = newContent.innerHTML;
+                window.scrollTo({
+                    top: target.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
         });
 }
