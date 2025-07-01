@@ -38,7 +38,9 @@
 <div>
     <h3 class="font-bold text-lg mb-4">الأكثر زيارة</h3>
     <ul class="space-y-2 text-gray-300">
-        @foreach ($mostVisited ?? [] as $post)
+        @foreach (\App\Models\Post::orderBy('visited', 'desc')
+        ->latest()
+        ->paginate(5) ?? [] as $post)
             <li class="flex items-center gap-2">
                 @if($post->image)
                     <img src="{{ asset('storage/' . $post->image) }}"
