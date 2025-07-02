@@ -8,13 +8,15 @@ use Illuminate\Http\Request;
 class SubscriptionController extends Controller
 {
     public function store(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|unique:subscriptions,email',
-        ]);
+{
+    $validated = $request->validate([
+        'email' => 'required|email|unique:subscriptions,email|max:255',
+    ]);
 
-        Subscription::create(['email' => $request->email]);
+    Subscription::create(['email' => $validated['email']]);
 
-        return response()->json(['message' => 'Subscribed successfully!']);
-    }
+    return response()->json([
+        'message' => __('تم الاشتراك بنجاح! شكراً لانضمامك إلى قائمتنا البريدية.')
+    ]);
+}
 }
