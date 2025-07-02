@@ -68,7 +68,7 @@
          x-transition:leave="transition ease-in duration-75"
          x-transition:leave-start="transform opacity-100 scale-100"
          x-transition:leave-end="transform opacity-0 scale-95"
-         class="absolute right-0 mt-2 w-[320px] bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-[400px] overflow-y-auto"
+         class="fixed sm:absolute inset-x-4 sm:right-0 sm:left-auto sm:w-[320px] mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-[60vh] overflow-y-auto"
          x-cloak>
         <div class="p-3">
             <h3 class="text-right text-base font-bold text-gray-800 border-b pb-1 mb-3">المحفوظات</h3>
