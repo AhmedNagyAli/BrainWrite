@@ -127,13 +127,18 @@
                          x-transition:leave-end="transform opacity-0 scale-95"
                          class="absolute left-0 mt-2 w-40 bg-white rounded shadow-md z-50 text-right origin-top-right border border-gray-200"
                          x-cloak>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit"
-                                    class="block w-full px-4 py-2 text-sm text-black hover:bg-gray-100">
-                                تسجيل الخروج
-                            </button>
-                        </form>
+
+                        <a href="{{ route('user.profile.edit') }}"
+   class="block w-full px-4 py-2 text-lg text-black hover:bg-gray-100 text-center">
+ لوحة التحكم
+</a>
+<form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit"
+            class="block w-full px-4 py-2 text-sm text-black hover:text-red-700 hover:bg-gray-100">
+        تسجيل الخروج
+    </button>
+</form>
                     </div>
                 @else
                     <div class="text-sm">
@@ -167,7 +172,10 @@
         </div>
 
         {{-- Right: Logo --}}
-        <div class="text-2xl font-bold text-black">BrainWrite</div>
+        <a href="{{ route('home') }}" class="text-2xl font-bold text-black hover:text-blue-700 transition">
+    BrainWrite
+</a>
+
     </div>
 </nav>
 
