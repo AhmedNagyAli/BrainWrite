@@ -21,26 +21,46 @@ public function updateProfile(Request $request)
         'bio' => 'nullable|string|max:1000',
     ]);
 
-    $user = auth()->user();
+    try {
+        $user = auth()->user();
 
-    $emailChanged = $user->email !== $request->email;
+        // Check if any data actually changed
+        $nameChanged = $user->name !== $request->name;
+        $bioChanged = $user->bio !== $request->bio;
+        $emailChanged = $user->email !== $request->email;
 
-    $user->name = $request->name;
-    $user->bio = $request->bio;
+        if (!$nameChanged && !$bioChanged && !$emailChanged) {
+            return response()->json([
+                'success' => true,
+                'unchanged' => true,
+                'message' => 'لم يتم تغيير أي بيانات'
+            ]);
+        }
 
-    if ($emailChanged) {
-        $user->email = $request->email;
-        $user->email_verified_at = null;
-        $user->is_email_verified = false;
-        $user->verification_code = rand(100000, 999999);
-        // Optional: Send email verification again here
+        $user->name = $request->name;
+        $user->bio = $request->bio;
+
+        if ($emailChanged) {
+            $user->email = $request->email;
+            $user->email_verified_at = null;
+            $user->is_email_verified = false;
+            $user->verification_code = rand(100000, 999999);
+            // Optional: Send email verification again here
+        }
+
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'تم تحديث المعلومات بنجاح'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'حدث خطأ أثناء محاولة التحديث: ' . $e->getMessage()
+        ]);
     }
-
-    $user->save();
-
-    return back()->with('success', 'تم تحديث المعلومات بنجاح');
 }
-
 public function editAvatar()
 {
     return view('user.edit-avatar');
