@@ -9,6 +9,25 @@
     <!-- Article Header -->
     <div class="mb-8">
         <h1 class="text-3xl md:text-5xl font-extrabold mb-4 text-black">{{ $post->title }}</h1>
+        @auth
+        <button id="save-post-btn"
+                data-post-id="{{ $post->id }}"
+                class="text-3xl transition"
+                aria-label="Toggle Save">
+            @if (auth()->user()->savedPosts->contains($post->id))
+                <svg id="bookmark-icon" xmlns="http://www.w3.org/2000/svg" fill="#1D4ED8" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M5 5v16l7-5 7 5V5a2 2 0 00-2-2H7a2 2 0 00-2 2z"/>
+                </svg>
+            @else
+                <svg id="bookmark-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor" class="w-8 h-8 text-gray-400 hover:text-blue-600 transition">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M5 5v16l7-5 7 5V5a2 2 0 00-2-2H7a2 2 0 00-2 2z"/>
+                </svg>
+            @endif
+        </button>
+    @endauth
 
         @if ($post->image)
             <img src="{{ asset('storage/' . $post->image) }}" class="w-full rounded-lg shadow-md mb-4" alt="{{ $post->title }}">
@@ -131,37 +150,6 @@
 @endsection
 
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const tracker = document.getElementById('visit-tracker');
-        if (!tracker) return;
-
-        const slug = tracker.dataset.slug;
-        const url = tracker.dataset.url;
-        const sessionKey = `session_visit_${slug}`;
-
-        if (!sessionStorage.getItem(sessionKey)) {
-            setTimeout(() => {
-                if (document.visibilityState === 'visible') {
-                    fetch(url, {
-                        method: "POST",
-                        headers: {
-                            "X-Requested-With": "XMLHttpRequest",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
-                            "Content-Type": "application/json",
-                            "Accept": "application/json"
-                        },
-                        credentials: "same-origin"
-                    }).then(response => {
-                        if (response.ok) {
-                            sessionStorage.setItem(sessionKey, 'true');
-                        }
-                    }).catch(error => {
-                        console.error('Error counting visit:', error);
-                    });
-                }
-            }, 5000);
-        }
-    });
+<script src="{{ asset('js/post.js') }}">
 </script>
 @endpush

@@ -38,3 +38,6 @@ Route::post('/posts/visit/{slug}', [PostController::class, 'incrementVisitBySlug
 Route::get('/search/posts', [App\Http\Controllers\SearchController::class, 'searchPosts'])->name('search.posts');
 
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
+
+
+Route::post('/posts/{post}/save', [PostController::class, 'toggleSave'])->middleware('auth')->name('posts.toggleSave');

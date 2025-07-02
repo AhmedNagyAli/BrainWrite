@@ -59,6 +59,11 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Post::class);
     }
+    public function savedPosts()
+{
+    return $this->belongsToMany(Post::class, 'post_user_saves')->withTimestamps();
+}
+
     public function isAdmin(): bool
 {
     return in_array($this->role->value ?? $this->role, ['admin', 'super_user']);

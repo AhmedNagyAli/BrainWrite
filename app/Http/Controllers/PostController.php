@@ -24,8 +24,8 @@ class PostController extends Controller
         }])
         ->with(['category', 'user'])
         ->orderByDesc('tags_count') // Posts with most matching tags first
-        ->orderByDesc('visited') // Then by popularity
-        ->orderByDesc('created_at') // Then by newest
+        ->orderByDesc('visited')
+        ->orderByDesc('created_at')
         ->first();
 
     // Fallback if no same-category post found
@@ -84,5 +84,19 @@ class PostController extends Controller
         'message' => 'Visit already counted in this session'
     ], 200);
 }
+
+public function toggleSave(Post $post)
+{
+    $user = auth()->user();
+
+    if ($user->savedPosts()->where('post_id', $post->id)->exists()) {
+        $user->savedPosts()->detach($post->id);
+        return response()->json(['status' => 'unsaved']);
+    } else {
+        $user->savedPosts()->attach($post->id);
+        return response()->json(['status' => 'saved']);
+    }
+}
+
 
 }

@@ -39,7 +39,12 @@ class Post extends Model
     {
         return $this->hasMany(Section::class)->orderBy('order');
     }
-    
+    public function savedByUsers()
+{
+    return $this->belongsToMany(User::class, 'post_user_saves')->withTimestamps();
+}
+
+
     // Scope for featured posts
     public function scopeFeatured($query)
     {
