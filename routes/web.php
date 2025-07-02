@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -41,3 +42,4 @@ Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subsc
 
 
 Route::post('/posts/{post}/save', [PostController::class, 'toggleSave'])->middleware('auth')->name('posts.toggleSave');
+Route::get('/saved-posts', [UserController::class, 'savedPosts'])->name('user.savedPosts');

@@ -42,6 +42,74 @@
                 </div>
             </div>
 
+            {{-- user saved --}}
+            @auth
+<div class="relative" x-data="{ openSaved: false }">
+    <button @click="openSaved = !openSaved"
+            class="text-gray-600 transition"
+            aria-label="Saved Posts">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             :fill="openSaved ? '#E5E7EB' : 'transparent'"
+             viewBox="0 0 24 24"
+             stroke="currentColor"
+             class="w-7 h-7 transition">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 5v16l7-5 7 5V5a2 2 0 00-2-2H7a2 2 0 00-2 2z" />
+        </svg>
+    </button>
+
+    <div x-show="openSaved"
+         @click.away="openSaved = false"
+         x-transition:enter="transition ease-out duration-100"
+         x-transition:enter-start="transform opacity-0 scale-95"
+         x-transition:enter-end="transform opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-75"
+         x-transition:leave-start="transform opacity-100 scale-100"
+         x-transition:leave-end="transform opacity-0 scale-95"
+         class="absolute right-0 mt-2 w-[320px] bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-[400px] overflow-y-auto"
+         x-cloak>
+        <div class="p-3">
+            <h3 class="text-right text-base font-bold text-gray-800 border-b pb-1 mb-3">المحفوظات</h3>
+
+            @php
+                $savedPosts = Auth::user()->savedPosts()->latest()->take(5)->get();
+            @endphp
+
+            @forelse($savedPosts as $post)
+                <div class="flex items-start gap-3 mb-3">
+                    <div class="w-14 h-14 flex-shrink-0 rounded overflow-hidden">
+                        <img src="{{ $post->image ? asset('storage/' . $post->image) : asset('storage/defaults/post-default.png') }}"
+                             alt="{{ $post->title }}"
+                             class="w-full h-full object-cover rounded">
+                    </div>
+                    <div class="flex-1 text-right">
+                        <a href="{{ route('posts.show', $post->slug) }}"
+                           class="block text-sm font-semibold text-gray-800 hover:text-blue-600 leading-snug line-clamp-2">
+                            {{ $post->title }}
+                        </a>
+                        <p class="text-xs text-gray-500 mt-0.5">
+                            {{ $post->created_at->format('Y-m-d') }}
+                        </p>
+                    </div>
+                </div>
+            @empty
+                <p class="text-sm text-gray-600 text-center mt-4">لا توجد مقالات محفوظة</p>
+            @endforelse
+
+            <div class="text-center mt-3">
+                <a href="{{ route('user.savedPosts') }}"
+                   class="inline-block text-sm text-blue-600 hover:underline font-semibold">
+                    عرض الكل
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+@endauth
+
+
             {{-- User Avatar - Visible on all screens --}}
             <div class="relative" x-data="{ userMenuOpen: false }">
                 @auth
@@ -73,6 +141,9 @@
                     </div>
                 @endauth
             </div>
+
+
+
         </div>
 
         {{-- Center: Search Box - Desktop only --}}
@@ -166,56 +237,5 @@
 </style>
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const initSearch = (inputId, resultsId) => {
-        const input = document.getElementById(inputId);
-        const resultsBox = document.getElementById(resultsId);
-
-        input.addEventListener('input', function () {
-            const query = this.value.trim();
-
-            if (query.length < 2) {
-                resultsBox.classList.add('hidden');
-                resultsBox.innerHTML = '';
-                return;
-            }
-
-            fetch(`/search/posts?query=${encodeURIComponent(query)}`)
-                .then(response => response.json())
-                .then(posts => {
-                    if (!posts.length) {
-                        resultsBox.innerHTML = `<div class="px-4 py-2 text-red-700 text-sm">لا توجد نتائج</div>`;
-                    } else {
-                        resultsBox.innerHTML = posts.map(post => `
-                            <a href="/posts/${post.slug}" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100">
-                                <img src="/storage/${post.image}" alt="${post.title}" class="w-18 h-18 object-cover flex-shrink-0">
-                                <div class="text-lg font-medium text-gray-800 truncate">${post.title}</div>
-                            </a>
-                        `).join('');
-                    }
-
-                    resultsBox.classList.remove('hidden');
-                })
-                .catch(() => {
-                    resultsBox.classList.add('hidden');
-                });
-        });
-
-        // Hide on outside click
-        document.addEventListener('click', (e) => {
-            const target = e.target;
-            if (!input.contains(target) && !resultsBox.contains(target)) {
-                resultsBox.classList.add('hidden');
-            }
-        });
-    };
-
-    // Initialize desktop search
-    initSearch('navbar-search', 'search-results');
-
-    // Initialize mobile search
-    initSearch('mobile-navbar-search', 'mobile-search-results');
-});
-</script>
+<script src="{{ asset('js/home.js') }}"></script>
 @endpush
