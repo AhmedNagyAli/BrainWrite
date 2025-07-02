@@ -4,7 +4,10 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-4 py-4 flex flex-col md:flex-row gap-6">
     {{-- Mobile menu button (hidden on desktop) --}}
     <button id="mobile-menu-button" class="md:hidden flex items-center justify-between w-full bg-gray-100 rounded-lg mb-4">
-        <span class="font-bold text-underline">{{ Auth::user()->name ?? '' }}</span>
+        <span class="font-bold">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-align-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6l16 0" /><path d="M10 12l10 0" /><path d="M6 18l14 0" /></svg>
+        </span>
+        {{-- <span class="font-bold text-underline">{{ Auth::user()->name ?? '' }}</span> --}}
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
