@@ -22,9 +22,10 @@ class User extends Authenticatable implements FilamentUser
      * @var list<string>
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'avatar', 'bio', 'active',
-        'banned', 'phone', 'country', 'language', 'role',
-    ];
+    'name', 'username', 'email', 'password', 'avatar', 'bio',
+    'active', 'banned', 'phone', 'country', 'language', 'role',
+    'verification_code', 'is_email_verified',
+];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -35,6 +36,7 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at' => 'datetime',
         'active' => 'boolean',
         'banned' => 'boolean',
+        'is_email_verified' => 'boolean',
         'role' => UserRole::class,
     ];
     protected $hidden = [

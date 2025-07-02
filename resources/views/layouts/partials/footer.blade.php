@@ -28,7 +28,7 @@
             <div class="flex flex-wrap gap-2">
                 @foreach (\App\Models\Tag::withCount('posts')->orderBy('posts_count', 'desc')->limit(15)->paginate(15) as $tag)
                     <a href="{{ route('tag.show', $tag->slug) }}"
-                       class="bg-blue-700 text-white px-2 py-1 rounded hover:bg-blue-600">
+                       class="bg-indigo-700 text-white px-2 py-1 rounded hover:bg-indigo-600">
                         #{{ $tag->name }}
                     </a>
                 @endforeach

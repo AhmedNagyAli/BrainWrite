@@ -2,7 +2,7 @@
     <div class="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
         <div class="w-full max-w-md bg-white rounded-xl shadow-md overflow-hidden">
             {{-- Header with logo --}}
-            <div class="bg-blue-600 p-6 text-center">
+            <div class="bg-indigo-600 p-6 text-center">
                 <div class="text-2xl font-bold text-white">BrainWrite</div>
                 {{-- <div class="mt-1 text-green-100">انضم إلى مجتمع الكتابة لدينا</div> --}}
             </div>
@@ -76,7 +76,7 @@
                     {{-- Submit Button --}}
                     <button
                         type="submit"
-                        class="w-full mt-6 bg-blue-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        class="w-full mt-6 bg-indigo-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                     >
                         تسجيل حساب جديد
                     </button>

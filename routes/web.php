@@ -43,3 +43,15 @@ Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subsc
 
 Route::post('/posts/{post}/save', [PostController::class, 'toggleSave'])->middleware('auth')->name('posts.toggleSave');
 Route::get('/saved-posts', [UserController::class, 'savedPosts'])->name('user.savedPosts');
+
+
+Route::middleware(['auth'])->prefix('dashboard')->group(function () {
+    Route::get('/profile', [UserController::class, 'editProfile'])->name('user.profile.edit');
+    Route::get('/avatar', [UserController::class, 'editAvatar'])->name('user.avatar.edit');
+    Route::get('/password', [UserController::class, 'editPassword'])->name('user.password.edit');
+    Route::get('/saved', [UserController::class, 'savedPosts'])->name('user.saved');
+
+    Route::post('/profile', [UserController::class, 'updateProfile'])->name('user.profile.update');
+    Route::post('/avatar', [UserController::class, 'updateAvatar'])->name('user.avatar.update');
+    Route::post('/password', [UserController::class, 'updatePassword'])->name('user.password.update');
+});

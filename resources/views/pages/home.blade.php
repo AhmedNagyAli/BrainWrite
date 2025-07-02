@@ -118,7 +118,7 @@
         <input type="email" id="subscribe-email" placeholder="example@email.com"
                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 mb-4 text-sm">
 
-        <button onclick="submitSubscription()" class="bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition">
+        <button onclick="submitSubscription()" class="bg-indigo-600 text-white w-full py-2 rounded-lg hover:bg-indigo-700 transition">
             اشترك الآن
         </button>
 
